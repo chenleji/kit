@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"testing"
 
-	httptransport "github.com/go-kit/kit/transport/http"
+	httptransport "github.com/chenleji/kit/transport/http"
 )
 
 func TestWithBasicAuth(t *testing.T) {

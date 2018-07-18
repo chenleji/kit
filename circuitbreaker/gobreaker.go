@@ -5,7 +5,7 @@ import (
 
 	"github.com/sony/gobreaker"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 )
 
 // Gobreaker returns an endpoint.Middleware that implements the circuit
@@ -15,8 +15,8 @@ import (
 // See http://godoc.org/github.com/sony/gobreaker for more information.
 func Gobreaker(cb *gobreaker.CircuitBreaker) endpoint.Middleware {
 	return func(next endpoint.Endpoint) endpoint.Endpoint {
-		return func(ctx context.Context, request interface{}) (interface{}, error) {
-			return cb.Execute(func() (interface{}, error) { return next(ctx, request) })
+		return func(ctx context.Context, method, rawUrl string, headers map[string]string, reqObj interface{}, respObj interface{}) (interface{}, error) {
+			return cb.Execute(func() (interface{}, error) { return next(ctx, method, rawUrl, headers, reqObj, respObj) })
 		}
 	}
 }

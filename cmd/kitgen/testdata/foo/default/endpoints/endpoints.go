@@ -2,9 +2,9 @@ package endpoints
 
 import "context"
 
-import "github.com/go-kit/kit/endpoint"
+import "github.com/chenleji/kit/endpoint"
 
-import "github.com/go-kit/kit/cmd/kitgen/testdata/foo/default/service"
+import "github.com/chenleji/kit/cmd/kitgen/testdata/foo/default/service"
 
 type BarRequest struct {
 	I int

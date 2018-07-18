@@ -6,7 +6,7 @@ import (
 
 	influxdb "github.com/influxdata/influxdb/client/v2"
 
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/log"
 )
 
 func ExampleCounter() {

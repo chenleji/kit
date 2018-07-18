@@ -9,16 +9,14 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
+	"log"
 )
 
 // Client wraps a URL and provides a method that implements endpoint.Endpoint.
 type Client struct {
 	client         *http.Client
-	method         string
-	tgt            *url.URL
-	enc            EncodeRequestFunc
-	dec            DecodeResponseFunc
+	tgt            string
 	before         []RequestFunc
 	after          []ClientResponseFunc
 	finalizer      []ClientFinalizerFunc
@@ -27,18 +25,12 @@ type Client struct {
 
 // NewClient constructs a usable Client for a single remote method.
 func NewClient(
-	method string,
-	tgt *url.URL,
-	enc EncodeRequestFunc,
-	dec DecodeResponseFunc,
+	target string,
 	options ...ClientOption,
 ) *Client {
 	c := &Client{
 		client:         http.DefaultClient,
-		method:         method,
-		tgt:            tgt,
-		enc:            enc,
-		dec:            dec,
+		tgt:            target,
 		before:         []RequestFunc{},
 		after:          []ClientResponseFunc{},
 		bufferedStream: false,
@@ -85,7 +77,7 @@ func BufferedStream(buffered bool) ClientOption {
 
 // Endpoint returns a usable endpoint that invokes the remote endpoint.
 func (c Client) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, request interface{}) (interface{}, error) {
+	return func(ctx context.Context, method, rawUrl string, headers map[string]string, reqObj interface{}, respObj interface{}) (interface{}, error) {
 		ctx, cancel := context.WithCancel(ctx)
 		defer cancel()
 
@@ -105,13 +97,29 @@ func (c Client) Endpoint() endpoint.Endpoint {
 			}()
 		}
 
-		req, err := http.NewRequest(c.method, c.tgt.String(), nil)
+		u, err := url.Parse(c.tgt + rawUrl)
+		if err != nil {
+			log.Println("Httplib:", err)
+		}
+
+		req, err := http.NewRequest(method, u.String(), nil)
 		if err != nil {
 			return nil, err
 		}
 
-		if err = c.enc(ctx, req, request); err != nil {
-			return nil, err
+		for k, v := range headers {
+			req.Header.Set(k, v)
+		}
+
+		// encode reqObj
+		if req.Body == nil && reqObj != nil {
+			byts, err := json.Marshal(reqObj)
+			if err != nil {
+				return nil, err
+			}
+			req.Body = ioutil.NopCloser(bytes.NewReader(byts))
+			req.ContentLength = int64(len(byts))
+			req.Header.Set("Content-Type", "application/json")
 		}
 
 		for _, f := range c.before {
@@ -132,12 +140,14 @@ func (c Client) Endpoint() endpoint.Endpoint {
 			ctx = f(ctx, resp)
 		}
 
-		response, err := c.dec(ctx, resp)
-		if err != nil {
-			return nil, err
+		// decode respObj
+		if respObj != nil {
+			if err := json.NewDecoder(resp.Body).Decode(&respObj); err != nil {
+				return nil, err
+			}
 		}
 
-		return response, nil
+		return respObj, nil
 	}
 }
 

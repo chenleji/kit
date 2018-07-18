@@ -6,7 +6,7 @@ import (
 
 	etcd "github.com/coreos/etcd/client"
 
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/log"
 )
 
 const minHeartBeatTime = 500 * time.Millisecond

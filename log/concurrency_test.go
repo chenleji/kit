@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/log"
 )
 
 // These test are designed to be run with the race detector.

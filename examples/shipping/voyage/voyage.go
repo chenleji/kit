@@ -5,7 +5,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/go-kit/kit/examples/shipping/location"
+	"github.com/chenleji/kit/examples/shipping/location"
 )
 
 // Number uniquely identifies a particular Voyage.

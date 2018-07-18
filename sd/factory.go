@@ -3,7 +3,7 @@ package sd
 import (
 	"io"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 )
 
 // Factory is a function that converts an instance string (e.g. host:port) to a

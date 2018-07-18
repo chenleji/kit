@@ -5,7 +5,7 @@ import (
 
 	"github.com/performancecopilot/speed"
 
-	"github.com/go-kit/kit/metrics/teststat"
+	"github.com/chenleji/kit/metrics/teststat"
 )
 
 func TestCounter(t *testing.T) {

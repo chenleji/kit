@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/log"
 )
 
 func TestManager(t *testing.T) {

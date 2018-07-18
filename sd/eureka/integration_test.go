@@ -9,7 +9,7 @@ import (
 
 	"github.com/hudl/fargo"
 
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/log"
 )
 
 // Package sd/eureka provides a wrapper around the Netflix Eureka service

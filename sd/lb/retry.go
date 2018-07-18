@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 )
 
 // RetryError is an error wrapper that is used by the retry mechanism. All
@@ -69,7 +69,7 @@ func RetryWithCallback(timeout time.Duration, b Balancer, cb Callback) endpoint.
 		panic("nil Balancer")
 	}
 
-	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+	return func(ctx context.Context, method, rawUrl string, headers map[string]string, reqObj interface{}, respObj interface{}) (response interface{}, err error) {
 		var (
 			newctx, cancel = context.WithTimeout(ctx, timeout)
 			responses      = make(chan interface{}, 1)
@@ -85,7 +85,7 @@ func RetryWithCallback(timeout time.Duration, b Balancer, cb Callback) endpoint.
 					errs <- err
 					return
 				}
-				response, err := e(newctx, request)
+				response, err := e(newctx, method, rawUrl, headers, reqObj, respObj)
 				if err != nil {
 					errs <- err
 					return

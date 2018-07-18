@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 )
 
 // Client wraps a gRPC connection and provides a method that implements
@@ -85,7 +85,7 @@ func ClientFinalizer(f ...ClientFinalizerFunc) ClientOption {
 // Endpoint returns a usable endpoint that will invoke the gRPC specified by the
 // client.
 func (c Client) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
+	return func(ctx context.Context, method, rawUrl string, headers map[string]string, request interface{}, respObj interface{}) (response interface{}, err error) {
 		ctx, cancel := context.WithCancel(ctx)
 		defer cancel()
 

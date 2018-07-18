@@ -64,8 +64,8 @@ OpenTracing interface and are highlighted in the [addsvc] example.
 [Zipkin] support is available through the [zipkin-go-opentracing] package.
 
 [Dapper]: http://research.google.com/pubs/pub36356.html
-[addsvc]:https://github.com/go-kit/kit/tree/master/examples/addsvc
-[README]: https://github.com/go-kit/kit/blob/master/tracing/zipkin/README.md
+[addsvc]:https://github.com/chenleji/kit/tree/master/examples/addsvc
+[README]: https://github.com/chenleji/kit/blob/master/tracing/zipkin/README.md
 
 [OpenTracing]: http://opentracing.io
 [opentracing-go]: https://github.com/opentracing/opentracing-go

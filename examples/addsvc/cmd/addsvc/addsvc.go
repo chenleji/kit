@@ -23,16 +23,16 @@ import (
 	"sourcegraph.com/sourcegraph/appdash"
 	appdashot "sourcegraph.com/sourcegraph/appdash/opentracing"
 
-	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/metrics"
-	"github.com/go-kit/kit/metrics/prometheus"
-	kitgrpc "github.com/go-kit/kit/transport/grpc"
+	"github.com/chenleji/kit/log"
+	"github.com/chenleji/kit/metrics"
+	"github.com/chenleji/kit/metrics/prometheus"
+	kitgrpc "github.com/chenleji/kit/transport/grpc"
 
-	addpb "github.com/go-kit/kit/examples/addsvc/pb"
-	"github.com/go-kit/kit/examples/addsvc/pkg/addendpoint"
-	"github.com/go-kit/kit/examples/addsvc/pkg/addservice"
-	"github.com/go-kit/kit/examples/addsvc/pkg/addtransport"
-	addthrift "github.com/go-kit/kit/examples/addsvc/thrift/gen-go/addsvc"
+	addpb "github.com/chenleji/kit/examples/addsvc/pb"
+	"github.com/chenleji/kit/examples/addsvc/pkg/addendpoint"
+	"github.com/chenleji/kit/examples/addsvc/pkg/addservice"
+	"github.com/chenleji/kit/examples/addsvc/pkg/addtransport"
+	addthrift "github.com/chenleji/kit/examples/addsvc/thrift/gen-go/addsvc"
 )
 
 func main() {

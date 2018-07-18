@@ -6,7 +6,7 @@ import (
 	"github.com/opentracing/opentracing-go"
 	otext "github.com/opentracing/opentracing-go/ext"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 )
 
 // TraceServer returns a Middleware that wraps the `next` Endpoint in an
@@ -16,7 +16,7 @@ import (
 // overwritten. If `ctx` does not yet have a Span, one is created here.
 func TraceServer(tracer opentracing.Tracer, operationName string) endpoint.Middleware {
 	return func(next endpoint.Endpoint) endpoint.Endpoint {
-		return func(ctx context.Context, request interface{}) (interface{}, error) {
+		return func(ctx context.Context, method, rawUrl string, headers map[string]string, reqObj interface{}, respObj interface{}) (interface{}, error) {
 			serverSpan := opentracing.SpanFromContext(ctx)
 			if serverSpan == nil {
 				// All we can do is create a new root span.
@@ -27,7 +27,7 @@ func TraceServer(tracer opentracing.Tracer, operationName string) endpoint.Middl
 			defer serverSpan.Finish()
 			otext.SpanKindRPCServer.Set(serverSpan)
 			ctx = opentracing.ContextWithSpan(ctx, serverSpan)
-			return next(ctx, request)
+			return next(ctx, method, rawUrl, headers, reqObj, respObj)
 		}
 	}
 }
@@ -36,7 +36,7 @@ func TraceServer(tracer opentracing.Tracer, operationName string) endpoint.Middl
 // OpenTracing Span called `operationName`.
 func TraceClient(tracer opentracing.Tracer, operationName string) endpoint.Middleware {
 	return func(next endpoint.Endpoint) endpoint.Endpoint {
-		return func(ctx context.Context, request interface{}) (interface{}, error) {
+		return func(ctx context.Context, method, rawUrl string, headers map[string]string, reqObj interface{}, respObj interface{}) (interface{}, error) {
 			var clientSpan opentracing.Span
 			if parentSpan := opentracing.SpanFromContext(ctx); parentSpan != nil {
 				clientSpan = tracer.StartSpan(
@@ -49,7 +49,7 @@ func TraceClient(tracer opentracing.Tracer, operationName string) endpoint.Middl
 			defer clientSpan.Finish()
 			otext.SpanKindRPCClient.Set(clientSpan)
 			ctx = opentracing.ContextWithSpan(ctx, clientSpan)
-			return next(ctx, request)
+			return next(ctx, method, rawUrl, headers, reqObj, respObj)
 		}
 	}
 }

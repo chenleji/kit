@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/endpoint"
+	"github.com/chenleji/kit/log"
 )
 
 // Server wraps an endpoint and implements http.Handler.
@@ -80,50 +80,50 @@ func ServerFinalizer(f ...ServerFinalizerFunc) ServerOption {
 	return func(s *Server) { s.finalizer = append(s.finalizer, f...) }
 }
 
-// ServeHTTP implements http.Handler.
-func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-
-	if len(s.finalizer) > 0 {
-		iw := &interceptingWriter{w, http.StatusOK, 0}
-		defer func() {
-			ctx = context.WithValue(ctx, ContextKeyResponseHeaders, iw.Header())
-			ctx = context.WithValue(ctx, ContextKeyResponseSize, iw.written)
-			for _, f := range s.finalizer {
-				f(ctx, iw.code, r)
-			}
-		}()
-		w = iw
-	}
-
-	for _, f := range s.before {
-		ctx = f(ctx, r)
-	}
-
-	request, err := s.dec(ctx, r)
-	if err != nil {
-		s.logger.Log("err", err)
-		s.errorEncoder(ctx, err, w)
-		return
-	}
-
-	response, err := s.e(ctx, request)
-	if err != nil {
-		s.logger.Log("err", err)
-		s.errorEncoder(ctx, err, w)
-		return
-	}
-
-	for _, f := range s.after {
-		ctx = f(ctx, w)
-	}
-
-	if err := s.enc(ctx, w, response); err != nil {
-		s.logger.Log("err", err)
-		s.errorEncoder(ctx, err, w)
-		return
-	}
-}
+//// ServeHTTP implements http.Handler.
+//func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+//	ctx := r.Context()
+//
+//	if len(s.finalizer) > 0 {
+//		iw := &interceptingWriter{w, http.StatusOK, 0}
+//		defer func() {
+//			ctx = context.WithValue(ctx, ContextKeyResponseHeaders, iw.Header())
+//			ctx = context.WithValue(ctx, ContextKeyResponseSize, iw.written)
+//			for _, f := range s.finalizer {
+//				f(ctx, iw.code, r)
+//			}
+//		}()
+//		w = iw
+//	}
+//
+//	for _, f := range s.before {
+//		ctx = f(ctx, r)
+//	}
+//
+//	request, err := s.dec(ctx, r)
+//	if err != nil {
+//		s.logger.Log("err", err)
+//		s.errorEncoder(ctx, err, w)
+//		return
+//	}
+//
+//	response, err := s.e(ctx, request)
+//	if err != nil {
+//		s.logger.Log("err", err)
+//		s.errorEncoder(ctx, err, w)
+//		return
+//	}
+//
+//	for _, f := range s.after {
+//		ctx = f(ctx, w)
+//	}
+//
+//	if err := s.enc(ctx, w, response); err != nil {
+//		s.logger.Log("err", err)
+//		s.errorEncoder(ctx, err, w)
+//		return
+//	}
+//}
 
 // ErrorEncoder is responsible for encoding an error to the ResponseWriter.
 // Users are encouraged to use custom ErrorEncoders to encode HTTP errors to

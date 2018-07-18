@@ -6,7 +6,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/log"
 )
 
 // Color represents an ANSI color. The zero value is Default.

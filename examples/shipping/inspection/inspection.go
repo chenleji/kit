@@ -2,7 +2,7 @@
 package inspection
 
 import (
-	"github.com/go-kit/kit/examples/shipping/cargo"
+	"github.com/chenleji/kit/examples/shipping/cargo"
 )
 
 // EventHandler provides means of subscribing to inspection events.

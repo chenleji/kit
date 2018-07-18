@@ -14,12 +14,12 @@ dependencies:
 
 test:
   pre:
-    - mkdir -p /home/ubuntu/.go_workspace/src/github.com/go-kit
-    - mv /home/ubuntu/kit /home/ubuntu/.go_workspace/src/github.com/go-kit
-    - ln -s /home/ubuntu/.go_workspace/src/github.com/go-kit/kit /home/ubuntu/kit
-    - go get -t github.com/go-kit/kit/...
+    - mkdir -p /home/ubuntu/.go_workspace/src/github.com/chenleji
+    - mv /home/ubuntu/kit /home/ubuntu/.go_workspace/src/github.com/chenleji
+    - ln -s /home/ubuntu/.go_workspace/src/github.com/chenleji/kit /home/ubuntu/kit
+    - go get -t github.com/chenleji/kit/...
   override:
-    - go test -v -race -tags integration github.com/go-kit/kit/...:
+    - go test -v -race -tags integration github.com/chenleji/kit/...:
         environment:
           ETCD_ADDR: http://localhost:2379
           CONSUL_ADDR: localhost:8500

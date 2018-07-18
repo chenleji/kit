@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/sd"
-	"github.com/go-kit/kit/sd/internal/instance"
+	"github.com/chenleji/kit/endpoint"
+	"github.com/chenleji/kit/log"
+	"github.com/chenleji/kit/sd"
+	"github.com/chenleji/kit/sd/internal/instance"
 )
 
 func TestDefaultEndpointer(t *testing.T) {

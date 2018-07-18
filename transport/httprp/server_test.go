@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"testing"
 
-	httptransport "github.com/go-kit/kit/transport/httprp"
+	httptransport "github.com/chenleji/kit/transport/httprp"
 )
 
 func TestServerHappyPathSingleServer(t *testing.T) {

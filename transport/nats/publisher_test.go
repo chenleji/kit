@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	natstransport "github.com/go-kit/kit/transport/nats"
+	natstransport "github.com/chenleji/kit/transport/nats"
 	"github.com/nats-io/go-nats"
 )
 
@@ -39,7 +39,7 @@ func TestPublisher(t *testing.T) {
 		decode,
 	)
 
-	res, err := publisher.Endpoint()(context.Background(), struct{}{})
+	res, err := publisher.Endpoint()(context.Background(), "", "", map[string]string{}, struct{}{}, struct{}{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -87,7 +87,7 @@ func TestPublisherBefore(t *testing.T) {
 		}),
 	)
 
-	res, err := publisher.Endpoint()(context.Background(), struct{}{})
+	res, err := publisher.Endpoint()(context.Background(), "", "", map[string]string{}, struct{}{}, struct{}{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -135,7 +135,7 @@ func TestPublisherAfter(t *testing.T) {
 		}),
 	)
 
-	res, err := publisher.Endpoint()(context.Background(), struct{}{})
+	res, err := publisher.Endpoint()(context.Background(), "", "", map[string]string{}, struct{}{}, struct{}{})
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -180,7 +180,7 @@ func TestPublisherTimeout(t *testing.T) {
 		natstransport.PublisherTimeout(time.Second),
 	)
 
-	_, err = publisher.Endpoint()(context.Background(), struct{}{})
+	_, err = publisher.Endpoint()(context.Background(), "", "", map[string]string{}, struct{}{}, struct{}{})
 	if err != context.DeadlineExceeded {
 		t.Errorf("want %s, have %s", context.DeadlineExceeded, err)
 	}
@@ -224,7 +224,7 @@ func TestEncodeJSONRequest(t *testing.T) {
 			Foo string `json:"foo"`
 		}{"foo"}, "{\"foo\":\"foo\"}"},
 	} {
-		if _, err := publisher(context.Background(), test.value); err != nil {
+		if _, err := publisher(context.Background(), "", "", map[string]string{}, struct{}{}, struct{}{}); err != nil {
 			t.Fatal(err)
 			continue
 		}

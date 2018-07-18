@@ -14,8 +14,8 @@ will be added to the context via the `jwt.JWTClaimsContextKey`.
 import (
 	stdjwt "github.com/dgrijalva/jwt-go"
 
-	"github.com/go-kit/kit/auth/jwt"
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/auth/jwt"
+	"github.com/chenleji/kit/endpoint"
 )
 
 func main() {
@@ -36,8 +36,8 @@ the token string and add it to the context via the `jwt.JWTTokenContextKey`.
 import (
 	stdjwt "github.com/dgrijalva/jwt-go"
 
-	"github.com/go-kit/kit/auth/jwt"
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/auth/jwt"
+	"github.com/chenleji/kit/endpoint"
 )
 
 func main() {
@@ -67,9 +67,9 @@ Example of use in a client:
 import (
 	stdjwt "github.com/dgrijalva/jwt-go"
 
-	grpctransport "github.com/go-kit/kit/transport/grpc"
-	"github.com/go-kit/kit/auth/jwt"
-	"github.com/go-kit/kit/endpoint"
+	grpctransport "github.com/chenleji/kit/transport/grpc"
+	"github.com/chenleji/kit/auth/jwt"
+	"github.com/chenleji/kit/endpoint"
 )
 
 func main() {
@@ -94,9 +94,9 @@ Example of use in a server:
 import (
 	"context"
 
-	"github.com/go-kit/kit/auth/jwt"
-	"github.com/go-kit/kit/log"
-	grpctransport "github.com/go-kit/kit/transport/grpc"
+	"github.com/chenleji/kit/auth/jwt"
+	"github.com/chenleji/kit/log"
+	grpctransport "github.com/chenleji/kit/transport/grpc"
 )
 
 func MakeGRPCServer(ctx context.Context, endpoints Endpoints, logger log.Logger) pb.ExampleServer {

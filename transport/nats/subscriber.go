@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/endpoint"
+	"github.com/chenleji/kit/log"
 
 	"github.com/nats-io/go-nats"
 )
@@ -93,7 +93,7 @@ func (s Subscriber) ServeMsg(nc *nats.Conn) func(msg *nats.Msg) {
 			return
 		}
 
-		response, err := s.e(ctx, request)
+		response, err := s.e(ctx, "", "", map[string]string{}, request, struct{}{})
 		if err != nil {
 			s.logger.Log("err", err)
 			if msg.Reply == "" {

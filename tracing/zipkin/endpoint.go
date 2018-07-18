@@ -6,7 +6,7 @@ import (
 	"github.com/openzipkin/zipkin-go"
 	"github.com/openzipkin/zipkin-go/model"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 )
 
 // TraceEndpoint returns an Endpoint middleware, tracing a Go kit endpoint.
@@ -15,7 +15,7 @@ import (
 // propagation of SpanContext is not provided in this middleware.
 func TraceEndpoint(tracer *zipkin.Tracer, name string) endpoint.Middleware {
 	return func(next endpoint.Endpoint) endpoint.Endpoint {
-		return func(ctx context.Context, request interface{}) (interface{}, error) {
+		return func(ctx context.Context, method, rawUrl string, headers map[string]string, reqObj interface{}, respObj interface{}) (interface{}, error) {
 			var sc model.SpanContext
 			if parentSpan := zipkin.SpanFromContext(ctx); parentSpan != nil {
 				sc = parentSpan.Context()
@@ -24,7 +24,7 @@ func TraceEndpoint(tracer *zipkin.Tracer, name string) endpoint.Middleware {
 			defer sp.Finish()
 
 			ctx = zipkin.NewContext(ctx, sp)
-			return next(ctx, request)
+			return next(ctx, method, rawUrl, headers, reqObj, respObj)
 		}
 	}
 }

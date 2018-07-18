@@ -93,7 +93,7 @@ func TestProcess(t *testing.T) {
 			}
 			laidout(t, inpath, dir, "flat", flat{}, in)
 			laidout(t, inpath, dir, "default", deflayout{
-				targetDir: filepath.Join("github.com/go-kit/kit/cmd/kitgen", dir, "default"),
+				targetDir: filepath.Join("github.com/chenleji/kit/cmd/kitgen", dir, "default"),
 			}, in)
 		})
 	}

@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 
-	kitgrpc "github.com/go-kit/kit/transport/grpc"
+	kitgrpc "github.com/chenleji/kit/transport/grpc"
 )
 
 const propagationKey = "grpc-trace-bin"

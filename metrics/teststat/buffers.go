@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"strconv"
 
-	"github.com/go-kit/kit/metrics/generic"
+	"github.com/chenleji/kit/metrics/generic"
 )
 
 // SumLines expects a regex whose first capture group can be parsed as a

@@ -3,7 +3,7 @@ package nats
 import (
 	"context"
 	"encoding/json"
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 	"github.com/nats-io/go-nats"
 	"time"
 )
@@ -63,7 +63,7 @@ func PublisherTimeout(timeout time.Duration) PublisherOption {
 
 // Endpoint returns a usable endpoint that invokes the remote endpoint.
 func (p Publisher) Endpoint() endpoint.Endpoint {
-	return func(ctx context.Context, request interface{}) (interface{}, error) {
+	return func(ctx context.Context, method, rawUrl string, headers map[string]string, request interface{}, respObj interface{}) (interface{}, error) {
 		ctx, cancel := context.WithTimeout(context.Background(), p.timeout)
 		defer cancel()
 

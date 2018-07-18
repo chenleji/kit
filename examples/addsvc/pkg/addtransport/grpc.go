@@ -13,17 +13,17 @@ import (
 	oldcontext "golang.org/x/net/context"
 	"golang.org/x/time/rate"
 
-	"github.com/go-kit/kit/circuitbreaker"
-	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/ratelimit"
-	"github.com/go-kit/kit/tracing/opentracing"
-	"github.com/go-kit/kit/tracing/zipkin"
-	grpctransport "github.com/go-kit/kit/transport/grpc"
+	"github.com/chenleji/kit/circuitbreaker"
+	"github.com/chenleji/kit/endpoint"
+	"github.com/chenleji/kit/log"
+	"github.com/chenleji/kit/ratelimit"
+	"github.com/chenleji/kit/tracing/opentracing"
+	"github.com/chenleji/kit/tracing/zipkin"
+	grpctransport "github.com/chenleji/kit/transport/grpc"
 
-	"github.com/go-kit/kit/examples/addsvc/pb"
-	"github.com/go-kit/kit/examples/addsvc/pkg/addendpoint"
-	"github.com/go-kit/kit/examples/addsvc/pkg/addservice"
+	"github.com/chenleji/kit/examples/addsvc/pb"
+	"github.com/chenleji/kit/examples/addsvc/pkg/addendpoint"
+	"github.com/chenleji/kit/examples/addsvc/pkg/addservice"
 )
 
 type grpcServer struct {

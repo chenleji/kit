@@ -5,8 +5,8 @@ import "encoding/json"
 
 import "net/http"
 
-import httptransport "github.com/go-kit/kit/transport/http"
-import "github.com/go-kit/kit/cmd/kitgen/testdata/anonfields/default/endpoints"
+import httptransport "github.com/chenleji/kit/transport/http"
+import "github.com/chenleji/kit/cmd/kitgen/testdata/anonfields/default/endpoints"
 
 func NewHTTPHandler(endpoints endpoints.Endpoints) http.Handler {
 	m := http.NewServeMux()

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 )
 
 func ExampleChain() {
@@ -35,10 +35,10 @@ var (
 
 func annotate(s string) endpoint.Middleware {
 	return func(next endpoint.Endpoint) endpoint.Endpoint {
-		return func(ctx context.Context, request interface{}) (interface{}, error) {
+		return func(ctx context.Context, request interface{}, headers map[string][]string, rawQuery string) (interface{}, error) {
 			fmt.Println(s, "pre")
 			defer fmt.Println(s, "post")
-			return next(ctx, request)
+			return next(ctx, request, headers, rawQuery)
 		}
 	}
 }

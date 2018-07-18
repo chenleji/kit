@@ -5,7 +5,7 @@ import (
 
 	stdconsul "github.com/hashicorp/consul/api"
 
-	"github.com/go-kit/kit/log"
+	"github.com/chenleji/kit/log"
 )
 
 func TestRegistrar(t *testing.T) {

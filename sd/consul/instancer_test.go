@@ -6,8 +6,8 @@ import (
 
 	consul "github.com/hashicorp/consul/api"
 
-	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/sd"
+	"github.com/chenleji/kit/log"
+	"github.com/chenleji/kit/sd"
 )
 
 var _ sd.Instancer = (*Instancer)(nil) // API check

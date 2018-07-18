@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-kit/kit/endpoint"
+	"github.com/chenleji/kit/endpoint"
 )
 
 func testFailingEndpoint(
@@ -69,7 +69,7 @@ type mock struct {
 	err     error
 }
 
-func (m *mock) endpoint(context.Context, interface{}) (interface{}, error) {
+func (m *mock) endpoint(context.Context, interface{}, map[string][]string, string) (interface{}, error) {
 	m.through++
 	return struct{}{}, m.err
 }

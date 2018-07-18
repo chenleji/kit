@@ -5,8 +5,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/go-kit/kit/endpoint"
-	"github.com/go-kit/kit/sd"
+	"github.com/chenleji/kit/endpoint"
+	"github.com/chenleji/kit/sd"
 )
 
 func TestRandom(t *testing.T) {
